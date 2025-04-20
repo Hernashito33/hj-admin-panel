@@ -1,21 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Usuarios registrados</title>
+    <title>Panel de Administración</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background-color: #fff5f7; }
-        table { width: 100%; border-collapse: collapse; background: white; }
-        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
-        th { background-color: #ffc2da; }
-        button { padding: 6px 12px; background-color: #d63384; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #b52a6b; }
-        .logout { float: right; margin-bottom: 10px; }
+        body { font-family: Arial; background-color: #ffeef4; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #f9a8c5; }
+        .btn { background-color: #ec4899; color: white; border: none; padding: 6px 12px; cursor: pointer; border-radius: 5px; }
+        .btn:hover { background-color: #db2777; }
     </style>
 </head>
 <body>
-    <a href="/logout" class="logout"><button>Cerrar sesión</button></a>
     <h2>📋 Lista de usuarios registrados</h2>
     <table>
         <tr>
@@ -25,19 +22,20 @@
             <th>Estado</th>
             <th>Acción</th>
         </tr>
-        {% for user in usuarios %}
+        {% for usuario in usuarios %}
         <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.licencia }}</td>
-            <td>{{ user.estado }}</td>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.licencia }}</td>
+            <td>{{ usuario.estado }}</td>
             <td>
-                <a href="/cambiar_estado/{{ user.id }}">
-                    <button>{{ 'Activar' if user.estado == 'inactivo' else 'Desactivar' }}</button>
-                </a>
+                <a href="/cambiar_estado/{{ usuario.id }}"><button class="btn">Desactivar</button></a>
+                <a href="/eliminar_usuario/{{ usuario.id }}"><button class="btn" style="background-color:#ef4444;">Eliminar</button></a>
             </td>
         </tr>
         {% endfor %}
     </table>
+    <br>
+    <a href="/logout"><button class="btn">Cerrar sesión</button></a>
 </body>
 </html>
