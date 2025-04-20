@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -49,6 +50,16 @@ def cambiar_estado(id):
     usuario = Usuario.query.get(id)
     if usuario:
         usuario.estado = 'activo' if usuario.estado == 'inactivo' else 'inactivo'
+        db.session.commit()
+    return redirect('/admin')
+
+@app.route('/eliminar_usuario/<int:id>')
+def eliminar_usuario(id):
+    if not session.get('admin'):
+        return redirect('/')
+    usuario = Usuario.query.get(id)
+    if usuario:
+        db.session.delete(usuario)
         db.session.commit()
     return redirect('/admin')
 
